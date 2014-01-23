@@ -59,6 +59,7 @@
             background-size: 100% 100%;
         }
 
+
         #magazine .loader
         {
             background-image: url(loader.gif);
@@ -76,23 +77,6 @@
             font-size: 40px;
             color: #999;
             line-height: 500px;
-        }
-
-        #wrapper button
-        {
-            margin-top: 10px;
-        }
-
-        .table-bordered
-        {
-            font-weight:bolder;
-        }
-        .table-bordered>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
-             background-color: rgb(255,255,255); opacity: 0.5;
-        }
-
-        .table-bordered>tbody>tr:nth-child(even)>td, .table-striped>tbody>tr:nth-child(even)>th {
-             background-color: rgb(218, 255, 126); opacity: 0.5;
         }
     </style>
 
@@ -122,10 +106,47 @@
                                 <div style="margin-left: auto; margin-right: auto; margin-top: 50px; width: 466px; height: 262px; overflow: hidden;">
                                     <img src='css/images/logo_small.png'>
                                 </div>
-                                <div style="position: absolute; right: 20px; bottom: 20px;">
-                                    <button onclick="Menu();" class="css3button" style="width: 70px;">
-                                        <img src="css/images/menu-item-icon.png" alt="menu"></button>
-                                </div>
+                            </td>
+                            <td style="width: 20px;" class="outer-bg-frame-12">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20px; height: 20px;" class="outer-bg-frame-14">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                            <td style="height: 20px;" class="outer-bg-frame-15">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                            <td style="width: 20px; height: 20px;" class="outer-bg-frame-17">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div style="background-image: url('css/images/background.jpg'); background-position: center; background-repeat: no-repeat;">
+            <div class='outer-bg-frame-shadow'>
+                <div class='outer-bg-frame-leaf'>
+                    <table class="tableContainer" border="0" cellpadding="0" cellspacing="0" style='width: 100%'>
+                        <tr>
+                            <td style="width: 20px; height: 20px;" class="outer-bg-frame-01">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                            <td style="height: 20px;" class="outer-bg-frame-02">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                            <td style="width: 20px; height: 20px;" class="outer-bg-frame-05">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 20px;" class="outer-bg-frame-09">
+                                <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                            </td>
+                            <td style="vertical-align: top;">
+                                <div style="margin-left: auto; margin-right: auto; margin-top: 50px; width: 466px; height: 262px; overflow: hidden;">Page 2</div>
                             </td>
                             <td style="width: 20px;" class="outer-bg-frame-12">
                                 <div style="width: 100%; overflow: hidden;">&nbsp;</div>
@@ -180,32 +201,16 @@
     <script type="text/javascript">
         jQuery(function ($) {
 
-            var numberOfPages = 5;
+
             $("#magazine").height($(window).height());
             $("#magazine").width($(window).width());
             $(".tableContainer").height($(window).height());
 
-            // Adds the pages that the book will need
-            function addPage(page, book) {
-                // 	First check if the page is already in the book
-                if (!book.turn('hasPage', page)) {
-                    // Create an element for this page
-                    var element = $('<div />', { 'class': 'page ' + ((page % 2 == 0) ? 'odd' : 'even'), 'id': 'page-' + page }).html('');
-                    // If not then add the page
-                    book.turn('addPage', element, page);
-                    // Let's assum that the data is comming from the server and the request takes 1s.
 
-                    //debugger;
-                    $.ajax({ url: "Page" + page + ".html" })
-                    .done(function (data) {
-                        //debugger;
-                        element.html(data);
-                        adjestHeight();
+            var numberOfPages = 1000;
 
-                    });
-                }
-            };
 
+       
             $(document).ready(function () {
                 $(window).resize(function () {
                     $("#magazine").height($(window).height());
@@ -214,33 +219,23 @@
                 });
 
                 $('#magazine').turn({
+                    display: 'single',
                     acceleration: true,
+                    gradients: !$.isTouch,
+                    autoCenter: true,
                     pages: numberOfPages,
                     elevation: 50,
-                    gradients: !$.isTouch,
-                    display: 'single',
-                    autoCenter: true,
-                    //turnCorners: "bl,br",
+                    turnCorners: "bl,br",
                     when: {
-                        turning: function (e, page, view) {
-                            //debugger;
-                            // Gets the range of pages that the book needs right now
-                            var range = $(this).turn('range', page);
-
-                            // Check if each page is within the book
-                            for (page = range[0]; page <= range[1]; page++)
-                                addPage(page, $(this));
-
-                        },
                         turned: function (e, page) {
-                            //$('#page-number').val(page);
-                            //debugger;
-                            adjestHeight();
+                            /*console.log('Current view: ', $(this).turn('view'));*/
                         }
                     }
+                  
                 });
 
                 $(window).bind('keydown', function (e) {
+
                     if (e.keyCode == 37)
                         $('#magazine').turn('previous');
                     else if (e.keyCode == 39)
@@ -249,31 +244,9 @@
                 });
             });
 
-            function adjestHeight() {
-                $("#magazine").height($(window).height());
-                $("#magazine").width($(window).width());
-                $(".tableContainer").height($(window).height());
-            };
-
-
+            
 
         });
-
-        function GoHome() {
-            $("#magazine").turn("page", 1);
-        };
-
-        function Menu() {
-            $("#magazine").turn("page", 2);
-        };
-
-        function Prev() {
-            $('#magazine').turn('previous');
-        };
-
-        function Next() {
-            $('#magazine').turn('next');
-        };
     </script>
 </body>
 </html>

@@ -1,0 +1,261 @@
+﻿<html>
+<head>
+    <title>HTTP Based Billing System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+        .alert
+        {
+            margin-bottom: 0px;
+        }
+
+        .modal-body
+        {
+            padding: 5px 0px 5px 5px;
+        }
+
+        .modal-footer
+        {
+            margin-top: 0px;
+        }
+
+        .modal-header
+        {
+            padding: 5px 5px 5px 5px;
+            background-color: #c3c3c3;
+        }
+
+        .modal-footer
+        {
+            padding: 5px;
+        }
+
+        button.close
+        {
+            font-size: xx-large;
+            padding-right: 10px;
+        }
+
+        .modal-title
+        {
+            padding: 0px 0px 0px 5px;
+        }
+
+        h1
+        {
+            position: relative;
+            font-size: 70px;
+            margin-top: 0;
+            font-family: 'Lobster', helvetica, arial;
+        }
+
+            h1 a
+            {
+                text-decoration: none;
+                color: #666;
+                position: absolute;
+                -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), color-stop(50%, rgba(0,0,0,.5)), to(rgba(0,0,0,1)));
+            }
+
+            h1:after
+            {
+                content: 'Hello World';
+                color: #d6d6d6;
+                text-shadow: 0 1px 0 white;
+            }
+
+        #wrapper button
+        {
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body style="background-image: url('css/images/background.jpg'); background-position: center; background-repeat: no-repeat;">
+    <div class='outer-bg-frame-shadow'>
+        <div class='outer-bg-frame-leaf-50'>
+            <table id="tableContainer" border="0" cellpadding="0" cellspacing="0" style='width: 100%'>
+                <tr>
+                    <td style="width: 20px; height: 20px;" class="outer-bg-frame-01">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                    <td style="height: 20px;" class="outer-bg-frame-02">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                    <td style="width: 20px; height: 20px;" class="outer-bg-frame-05">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20px;" class="outer-bg-frame-09">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                    <td style="">
+                        <div id="wrapper" style="margin: auto;  overflow:auto; text-align:center;">                          
+                                <button class="css3button">Non veg Soups</button>
+                                <button class="css3button">Veg soup</button>
+                                <button class="css3button">Chettinad soup</button>
+                                <button class="css3button">Nonveg (appetizer)</button>
+                                <button class="css3button">Vegetarian (appetizer)</button>
+                                <button class="css3button">Soft drinks</button>
+                                <button class="css3button">Hot drinks</button>
+                                <button class="css3button">Milk shakes</button>
+                                <button class="css3button">Anjappar tandoor</button>
+                                <button class="css3button">Today's special</button>
+                                <button class="css3button">Fresh fruit juice</button>
+                                <button class="css3button">Milk shakes</button> 
+                        </div>
+                        <div style=" position:absolute;right:20px;bottom:20px;"> 
+                            <button onclick="goHome();" class="css3button" style="width:70px;"><img src="css/images/Actions-go-home-icon.png" alt="home"></button> 
+                            <button class="css3button" style="width:70px;"><img src="css/images/Actions-go-next-icon.png" alt="next"></button>
+                        </div>                        
+                    </td>
+                    <td style="width: 20px;" class="outer-bg-frame-12">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20px; height: 20px;" class="outer-bg-frame-14">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                    <td style="height: 20px;" class="outer-bg-frame-15">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                    <td style="width: 20px; height: 20px;" class="outer-bg-frame-17">
+                        <div style="width: 100%; overflow: hidden;">&nbsp;</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="alertDialog" tabindex="-1" role="dialog" aria-labelledby="alertHeaderLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="alertHeaderLabel">Modal title</h4>
+                </div>
+                <div class="modal-body" id="divAlertBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/storage/memory-store.js"></script>
+    <script src="js/main.js"></script>
+    <!--  -->
+    <!--  -->
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            $("#tableContainer").height($(document).height());
+            $(document).ready(function () {
+                $(window).resize(function () {
+                    $("#tableContainer").height($(document).height());
+                });
+            });
+
+            $(".dropdown-menu li a").click(function () {
+                $("#txtCode").html($(this).html());
+            });
+
+
+            $("#txtMobile").keydown(function (event) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                    // Allow: Ctrl+A
+                    (event.keyCode == 65 && event.ctrlKey === true) ||
+                    // Allow: home, end, left, right
+                    (event.keyCode >= 35 && event.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                else {
+                    // Ensure that it is a number and stop the keypress
+                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                        event.preventDefault();
+                    }
+                }
+            });
+
+            $("#btnGo").click(function () {
+                var msidn = $("#txtCode").html() + $("#txtMobile").val();
+
+                var path = "http://pt4.etisalat.ae/external_bill/sub_unsub.php?pack_id=[ServiceId]&msg=SUB&user_name=[user_name]&password=[password]&type=3&msisdn=" + msidn;
+
+                $.ajax({
+                    type: "POST", url: path,
+                    success: function (data, text) {
+                        $("#alertHeaderLabel").html('Sucess');
+                        $("#divAlertBody").html('<div class="alert alert-success">' + 'Sucess' + '</div>');
+                        $('#alertDialog').modal('show');
+                    },
+                    error: function (request, status, error) {
+                        $("#alertHeaderLabel").html('Error');
+                        $("#divAlertBody").html('<div class="alert alert-danger">' + request.responseText + " " + path + '</div>');
+                        $('#alertDialog').modal('show');
+                    }
+                });
+
+
+            });
+
+
+            ////http://pt4.etisalat.ae/external_bill/sub_unsub.php?pack_id=[ServiceId]&msg=[action]&user_name=[user_name]&password=[password]&type=3&msisdn=[msisdn]
+            ////Where:
+            //[ServiceId] :Package ID
+            //[action] :SUB /UNSUB
+            //[user_name] :CP user name
+            //[password] :CP password
+            //[msisdn] :Subscriber MSISDN after verification
+            //Response codes :
+            //Response
+            //On successful submitting
+            //Response will be “Successfully Submitted”
+
+
+
+
+            //The format of the URL is given below.
+            //http://pt3.etisalat.ae/PUSH?esme=<UserName>&pwd=<Password>&dcs=264&esm=0&src=<S
+            //ender_ID>&dst=<MSISDN>&msg=<Message>
+            //Parameters Used in URL are Described as Below:
+            //Parameter Description
+            //http://pt3.etisalat.ae/PUSH?      This is the url of PT SMS Gateway
+            //esme                              This is the username of provide to CP
+            //pwd                               This is CP account Password on Gateway
+            //dsc                               If content is WAP Push Then Its values should be 264
+            //esme                              If content is WAP Push Then Its values should be 0
+            //src                               Sender Id For sending Content
+            //dst                               MSISDN of the user to whom content needs to deliver
+            //msg                               Message or WAP link which CP needs to send
+            //The above URL allows the CP to use the SMS Gateway pipeline to push content to the
+            //Subscribers. However, the content rendering will be responsibility of the CP.
+            //    Note: CP is expected to use the encoded URL; while calling the URL from CP application
+
+
+        });
+    </script>
+</body>
+</html>
